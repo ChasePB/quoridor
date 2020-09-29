@@ -1,5 +1,6 @@
 package io.github.usafa_compsci350;
 
+import java.nio.charset.StandardCharsets; // TODO: Check, Temp fix for charset usage
 import java.util.Scanner;
 
 public class QuoridorCli implements Quoridor {
@@ -17,14 +18,15 @@ public class QuoridorCli implements Quoridor {
 
   QuoridorCli() {
     System.out.println("Welcome to Quoridor!\n");
-    sc = new Scanner(System.in);
-    init();
   }
 
   // init() - Initialize game.
   @Override
-  public void init() {
+  public final void init() {
+    // Initialize board and input scanner
     board = new Board();
+    // TODO: Check, Temp fix for charset usage
+    sc = new Scanner(System.in, StandardCharsets.UTF_8);
 
     System.out.println("How many players will there be (2 or 4)?");
     // TODO: Handle errors/valid input test
@@ -39,6 +41,10 @@ public class QuoridorCli implements Quoridor {
   // play() - Game event loop handler
   @Override
   public void play() {
+
+    // Initialize game session
+    init();
+
     while (!exit) {
       for (int i = 1; i <= numberOfPlayers; i++) {
         System.out.println("\nIt is Player " + i + "'s turn!");
@@ -56,7 +62,7 @@ public class QuoridorCli implements Quoridor {
     System.out.println("Enter your move choice: ");
     String input = getInput();
 
-    boolean endState = checkMove(input);
+    boolean endState = checkMove(input, playerNumber);
     drawBoard();
     if (endState) {
       return checkEndState();
@@ -75,7 +81,10 @@ public class QuoridorCli implements Quoridor {
 
   // TODO: checkMove() - Check for a valid wall placement/pawn movement choice,
   //  returning a boolean for end state being met
-  private boolean checkMove(String input) {
+  // TODO: Remove suppression after implementation-ignores placeholder code w/o
+  //  commenting out
+  @SuppressWarnings("PMD")
+  private boolean checkMove(String input, int playerNumber) {
     // TODO: Prompt for player's move choice until a valid move is chosen and
     //  returned - while(true)
     // TODO:    Obtain player input
@@ -93,11 +102,17 @@ public class QuoridorCli implements Quoridor {
   }
 
   // TODO: checkWallMove() - Check wall placement choice, post data if valid
+  // TODO: Remove suppression after implementation-ignores placeholder code w/o
+  //  commenting out
+  @SuppressWarnings("PMD")
   private void checkWallMove(String input) {
   }
 
   // TODO: checkPawnMove() - Check pawn move choice, post data if valid, return
   //  boolean of end state being reached
+  // TODO: Remove suppression after implementation-ignores placeholder code w/o
+  //  commenting out
+  @SuppressWarnings("PMD")
   private boolean checkPawnMove(String input) {
     return false;
   }
